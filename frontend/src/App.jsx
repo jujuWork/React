@@ -2,8 +2,9 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
+import Favorite from './pages/favorite';
 // import MovieCard from './components/MovieCard';
-import Home from './pages/Home';
+import Home from './pages/home';
 import {Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -11,7 +12,10 @@ function App() {
 
   return (
     <main className="main-content"> 
-      <Routes></Routes>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Favorite />} />
+      </Routes>
 
 
     

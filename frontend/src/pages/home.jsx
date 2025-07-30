@@ -1,5 +1,6 @@
 import MovieCard from "../components/MovieCard";
 import { useState } from "react";
+import "../css/NavBar.css";
 
 function Home() {
     const [searchQuery, setSearcgQuery] = useState("");
@@ -26,7 +27,7 @@ function Home() {
             <button type="submit" className="search-button">Search</button>
         </form>
 
-        <div className="movies-grid">
+        <div className="movie-grid">
             {movies.map((movie) => (
                 ( 
                 <MovieCard movie={movie} key={movie.id} />

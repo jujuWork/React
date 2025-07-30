@@ -1,4 +1,6 @@
-    // what iinformation do i need into this movie card
+import "../css/MovieCard.css";
+
+ // what iinformation do i need into this movie card
 function MovieCard ({movie}) {
             // button onlick function every click
         function onFavoriteClick () {

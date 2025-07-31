@@ -12,11 +12,11 @@ function Home() {
     useEffect(() => {
         const loadPopularMovies = async () => {
             try {
-                const popularMovies = await getPopularMovies()
-                setMovies(popularMovies)
+                const popularMovies = await getPopularMovies();
+                setMovies(popularMovies);
             } catch (err) {
-                console.log(err)
-                setError("Failed to Load Movies...")
+                console.log(err);
+                setError("Failed to Load Movies...");
             }
             finally {
                 setLoading(false)
@@ -43,9 +43,15 @@ function Home() {
         </form>
 
         <div className="movies-grid">
-            {movies.map((movie) => (
-                <MovieCard movie={movie} key={movie.id} />
-            ))}
+            {loading && <p>Loading...</p>}
+            {error && <p>{error}</p>}
+            {!loading && !error && Array.isArray(movies) && (
+                <div className="movies-grid">
+                    {movies.map((movie) => (
+                        <MovieCard movie={movie} key={movie.id} />
+                    ))}
+                </div>
+            )}
         </div>
     </div>
 }

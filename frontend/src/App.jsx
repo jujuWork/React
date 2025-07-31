@@ -3,8 +3,7 @@
 // import viteLogo from '/vite.svg'
 import './css/App.css'
 import Favorite from './pages/Favorite';
-// import MovieCard from './components/MovieCard';
-import Home from './pages/Home';
+import MovieCard from './components/MovieCard';
 import {Routes, Route} from "react-router-dom";
 import NavBar from "./components/NavBar";
 
@@ -24,4 +23,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

@@ -1,10 +1,10 @@
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
-import "../css/NavBar.css";
+import "../css/Home.css";
 
 function Home() {
-    const [searchQuery, setSearcgQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -15,13 +15,15 @@ function Home() {
                 const popularMovies = await getPopularMovies()
                 setMovies(popularMovies)
             } catch (err) {
-                setError("Failed to Load Movies");
+                console.log(err)
+                setError("Failed to Load Movies...")
             }
             finally {
                 setLoading(false)
             }
         }
-            setLoading();
+
+        loadPopularMovies()
     }, []);
 
     const handleSearch = () => {
@@ -35,19 +37,17 @@ function Home() {
                 placeholder="Search for movies..." 
                 className="search"
                 value={searchQuery}
-                onChange={(e) => setSearcgQuery(e.target.value)}
+                onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button type="submit" className="search-button">Search</button>
         </form>
 
-        <div className="movie-grid">
+        <div className="movies-grid">
             {movies.map((movie) => (
-                ( 
                 <MovieCard movie={movie} key={movie.id} />
-                )
             ))}
         </div>
     </div>
 }
 
-export default Home
+export default Home;

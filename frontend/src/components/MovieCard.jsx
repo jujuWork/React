@@ -4,7 +4,7 @@ import { useMovieContext } from "../contexts/MovieContext";
  // what iinformation do i need into this movie card
 function MovieCard ({movie}) {
             // Calling the MovieCard
-        const {isFavorite, addToFavorites, removeFromFavorites} = useMovieContext ()
+        const {isFavorite, addToFavorites, removeFromFavorites} = useMovieContext();
         const favorite = isFavorite(movie.id)
 
             // button onlick function every click

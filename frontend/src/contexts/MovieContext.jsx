@@ -1,48 +1,52 @@
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useState, useContext, useEffect } from "react";
 
-const MovieContext = createContext()
+const MovieContext = createContext();
 
-export const useMovieContext = () => useContext (MovieContext)
+// eslint-disable-next-line react-refresh/only-export-components
+export const useMovieContext = () => useContext(MovieContext);
 
-export const MovieProvider = ({children}) => {
-    const [favorites, setFavorites] = useState([])
-
-        {/* Storing the Favorites Movie */}
-    useEffect(() => {
-        const storedFavs = localStorage.getItem("favorites")
-
-        if (storedFavs) setFavorites(JSON.parse(storedFavs))
-    }, [])
-
-        {/* Updating the Favorite Movie */}
-    useEffect(() => {
-        localStorage.setItem('favorites', JSON.stringify(favorites))
-    }, [favorites])
-
-        {/* Adding Movie to Favorites */}
-    const addToFavorites = (movie) => {
-        setFavorites(prev => [...prev, movie])
+export const MovieProvider = ({ children }) => {
+  const [favorite, setFavorites] = useState(() => {
+    const storedFavs = localStorage.getItem("favorites");
+    try {
+      return storedFavs ? JSON.parse(storedFavs) : [];
+    } catch {
+      console.warn("Invalid Favorites");
+      return [];
     }
+  });
 
-        {/* Removing Movies from Favorites */}
-    const removeFromFavorites = (movieId) => {
-        setFavorites(prev => prev.filter(movie => movie.id !== movieId))
-    }
+  // Save Favorites to Local Storage every time it changes
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorite));
+  }, [favorite]);
 
-        {/* Checking if all ID is the same as movieId */}
-    const isFavorite = (movieId) => {
-        return favorites.some(movie => movie.id === movieId)
-    }
+  // Adding Movie to Favorites
+  const addToFavorites = (movie) => {
+    setFavorites((prev) => [...prev, movie]);
+  };
 
-        {/* Creating value for the Provider */}
-    const value = {
-        favorites,
-        addToFavorites,
-        removeFromFavorites,
-        isFavorite
-    }
+  // Removing Movies from Favorites
+  const removeFromFavorites = (movieId) => {
+    setFavorites((prev) => prev.filter((movie) => movie.id !== movieId));
+  };
 
-    return <MovieContext.Provider value = {value}>
-        {children}
-    </MovieContext.Provider>
-}
+  // Checking if movie is favorited
+  const isFavorite = (movieId) => {
+    return favorite.some((movie) => movie.id === movieId);
+  };
+
+  {
+    /* Creating value for the Provider */
+  }
+  const value = {
+    favorite,
+    addToFavorites,
+    removeFromFavorites,
+    isFavorite,
+  };
+
+  return (
+    <MovieContext.Provider value={value}>{children}</MovieContext.Provider>
+  );
+};

@@ -1,27 +1,29 @@
-import "../css/Favorite.css";
-import{ useMovieContext } from "../contexts/MovieContext";
-import MovieCard from "../components/MovieCard";
+    import "../css/Favorite.css";
+    import { useMovieContext } from "../contexts/MovieContext";
+    import MovieCard from "../components/MovieCard";
 
-function Favorite() {
-    const { favorites } = useMovieContext();
+    function Favorite() {
+    const { favorite } = useMovieContext();
 
-    if (favorites) {
+    if (favorite.length > 0) {
         return (
-            <div className="favorites">
-                <h2>Your Favorites</h2>
+        <div className="favorites">
+            <h2>Your Favorites</h2>
             <div className="movies-grid">
-                {favorites.map((movie) => (
-                    <MovieCard movie={movie} key={movie.id} />
-                ))}
+            {favorite.map((movie) => (
+                <MovieCard movie={movie} key={movie.id} />
+            ))}
             </div>
-            </div>
-        )
+        </div>
+        );
     }
 
-    return <div className="favorites-empty">
+    return (
+        <div className="favorites-empty">
         <h2>No Favorite Movies Yet</h2>
         <p>Start adding movies to your favorites and they appear here.</p>
-    </div>
-}
+        </div>
+    );
+    }
 
-export default Favorite
+    export default Favorite;

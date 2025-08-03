@@ -1,34 +1,47 @@
 import "../css/MovieCard.css";
 import { useMovieContext } from "../contexts/MovieContext";
 
- // what iinformation do i need into this movie card
-function MovieCard ({movie}) {
-            // Calling the MovieCard
-        const {isFavorite, addToFavorites, removeFromFavorites} = useMovieContext();
-        const favorite = isFavorite(movie.id)
+// what iinformation do i need into this movie card
+function MovieCard({ movie }) {
+  // Calling the MovieCard
+  const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+  // const favorite = isFavorite(movie.id);
 
-            // button onlick function every click
-        function onFavoriteClick (e) {
-            e.preventDefault()
-            if (favorite) removeFromFavorites(movie.id)
-                else addToFavorites(movie)
-        }
+  // button onlick function every click
+  function onFavoriteClick(e) {
+    e.preventDefault();
+    // if (favorite) removeFromFavorites(movie.id)
+    //     else addToFavorites(movie)
+    if (isFavorite(movie.id)) {
+      removeFromFavorites(movie.id);
+    } else {
+      addToFavorites(movie);
+    }
+  }
 
-    return <div className="movie-card">
-        <div className="movie-poster">
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="{movie.title}" />
-                <div className="movie-overlay">
-                    <button className={`favorite-btn ${favorite ? "active" : ""}`} onClick={onFavoriteClick}>
-                        ♥
-                    </button>
-                </div>
+  return (
+    <div className="movie-card">
+      <div className="movie-poster">
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt="{movie.title}"
+        />
+        <div className="movie-overlay">
+          <button
+            className={`favorite-btn ${isFavorite(movie.id) ? "active" : ""}`}
+            onClick={onFavoriteClick}
+          >
+            ♥
+          </button>
         </div>
+      </div>
 
-        <div className="movie-info">
-            <h3>{movie.title}</h3>
-            <p>{movie.release_date}</p>
-        </div>
+      <div className="movie-info">
+        <h3>{movie.title}</h3>
+        <p>{movie.release_date}</p>
+      </div>
     </div>
+  );
 }
 
 export default MovieCard;
